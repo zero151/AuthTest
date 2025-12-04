@@ -72,7 +72,6 @@ class ApiClient {
       await _saveTokens(body['jwt'], body['refresh_token']);
       return body['jwt'];
     } else {
-      // Если даже RT не сработал — чистим все и выкидываем на логин
       await logout();
       throw Exception('Сессия истекла');
     }

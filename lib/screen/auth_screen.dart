@@ -35,7 +35,6 @@ class AuthScreen extends StatelessWidget {
           if (state is AuthAuthenticated) {
             return MainScreenWidget(user_id: state.userId);
           }
-          // Заглушка, чтобы не было "пьяного" экрана
           return const Center(child: CircularProgressIndicator());
         },
       ),
@@ -43,7 +42,6 @@ class AuthScreen extends StatelessWidget {
   }
 }
 
-// Экран 1: Ввод Email
 class EmailScreenWidget extends StatelessWidget {
   EmailScreenWidget({super.key});
   final emailController = TextEditingController();
@@ -51,7 +49,6 @@ class EmailScreenWidget extends StatelessWidget {
   void signUserIn(BuildContext context) {
     final email = emailController.text.trim();
 
-    // Валидация
     if (email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -62,7 +59,6 @@ class EmailScreenWidget extends StatelessWidget {
       return;
     }
 
-    // Regex валидация
     final bool emailValid = RegExp(
       r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
     ).hasMatch(email);
@@ -76,8 +72,6 @@ class EmailScreenWidget extends StatelessWidget {
       );
       return;
     }
-
-    // Запрос в Cubit
     context.read<AuthCubit>().sendCode(email);
   }
 
@@ -118,7 +112,6 @@ class EmailScreenWidget extends StatelessWidget {
   }
 }
 
-// Экран 2: Ввод Кода
 class CodeScreenWideget extends StatelessWidget {
   CodeScreenWideget({super.key});
   final codeController = TextEditingController();
@@ -126,7 +119,6 @@ class CodeScreenWideget extends StatelessWidget {
   void signUserIn(BuildContext context) {
     final code = codeController.text.trim();
 
-    // Валидация кода
     if (code.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
